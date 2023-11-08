@@ -1,0 +1,62 @@
+﻿@model BL.Emisor
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">RELLENA LOS CAMPOS</h1>
+<br />
+<hr />
+
+@using (Html.BeginForm("Form","Emisor", FormMethod.Post, new { enctype = "multipart/form-data"}))
+{
+    @Html.HiddenFor(model => model.Bandera)
+    if(Model.IdEmisor == "" || Model.IdEmisor == null )
+    {
+        <div class="row">
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.IdEmisor,new {@class= "form-control", @required = "required", @placeholder = "IDENTIFICADOR DEL EMISOR"})
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.RFC,new {@class= "form-control", @required = "required", @placeholder = "RFC"})
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.FechaInicioOperaciones,"{0:MM-dd-yyyy}", new { @class = "form-control", type = "date", @placeholder = "AGREGA FECHA"})
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.Capital,new {@class= "form-control", @required = "required", @placeholder = "CAPITAL"})
+            </div>
+        </div>
+        <br />
+        <hr />
+        <button class="btn btn-success" type="submit">AGREGAR EMISOR </button>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.IdEmisor)
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.RFC)
+                @Html.TextBoxFor(model => model.RFC,new {@class= "form-control", @required = "required"})
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.FechaInicioOperaciones)
+                @Html.TextBoxFor(model => model.FechaInicioOperaciones,new {@class= "form-control",  @type = "date"})
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Capital)
+                @Html.TextBoxFor(model => model.Capital,new {@class= "form-control", @required = "required", @placeholder = "CAPITAL"})
+            </div>
+        </div>
+        <br />
+        <button class="btn btn-success" type="submit">EDITAR EMISOR </button>
+    }
+    <a href="@Url.Action("GetAll","Emisor")" class="btn btn-outline-warning"> VOLVER </a>
+}
+
